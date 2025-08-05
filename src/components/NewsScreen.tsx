@@ -27,23 +27,49 @@ const NewsScreen: React.FC = () => {
         fetchNews();
     }, []);
 
-  return (
-    <div>
-        <div>
-            <h1>Top News Today</h1>
-        </div>
-        {loading && <p>Loading...</p>}
-        {error &&  <p>{error}</p>}
+    return (
+    <div className="min-h-screen w-full bg-gradient-to-b from-black to-gray-900 px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl md:text-5xl font-bold text-white text-center mb-10">
+            📰 Top News Today
+        </h1>
 
-        {articles.map((article: Article, index: number) => (
-        <div key={index}>
-            <h2>{article.title}</h2>
-            <p>{article.description}</p>
-            <a href={article.url} target="_blank" rel="noopener noreferrer">Read more</a>
+        {loading && <p className="text-white text-center">Loading...</p>}
+        {error && <p className="text-red-400 text-center">{error}</p>}
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {articles.map((article: Article, index: number) => (
+            <div
+                key={index}
+                className="bg-white/10 m-2 backdrop-blur-sm p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transition-transform hover:scale-110 duration-300"
+            >
+                {article.urlToImage && (
+                <img
+                    src={article.urlToImage}
+                    alt={article.title}
+                    className="w-full h-48 object-cover rounded-md mb-4"
+                />
+                )}
+                <h2 className="text-xl font-semibold text-white mb-2 line-clamp-2">
+                {article.title}
+                </h2>
+                <p className="text-gray-300 mb-4 line-clamp-3">
+                {article.description}
+                </p>
+                <a
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-sm font-medium text-blue-400 hover:underline"
+                >
+                🔗 Read more
+                </a>
+            </div>
+            ))}
         </div>
-        ))}
+        </div>
     </div>
-  );
+    );
 }
 
 export default NewsScreen
