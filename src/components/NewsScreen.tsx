@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+ import { motion } from "framer-motion";
 import type { Article } from "../types/types";
 
 const NewsScreen: React.FC = () => {
@@ -43,27 +44,33 @@ const NewsScreen: React.FC = () => {
                 key={index}
                 className="bg-white/10 m-2 backdrop-blur-sm p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transition-transform hover:scale-110 duration-300"
             >
-                {article.urlToImage && (
-                <img
-                    src={article.urlToImage}
-                    alt={article.title}
-                    className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                )}
-                <h2 className="text-xl font-semibold text-white mb-2 line-clamp-2">
-                {article.title}
-                </h2>
-                <p className="text-gray-300 mb-4 line-clamp-3">
-                {article.description}
-                </p>
-                <a
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-sm font-medium text-blue-400 hover:underline"
-                >
-                🔗 Read more
-                </a>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}>
+
+                    {article.urlToImage && (
+                    <img
+                        src={article.urlToImage}
+                        alt={article.title}
+                        className="w-full h-48 object-cover rounded-md mb-4"
+                    />
+                    )}
+                    <h2 className="text-xl font-semibold text-white mb-2 line-clamp-2">
+                        {article.title}
+                    </h2>
+                    <p className="text-gray-300 mb-4 line-clamp-3">
+                        {article.description}
+                    </p>
+                    <a
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-sm font-medium text-blue-400 hover:underline"
+                    >
+                        🔗 Read more
+                    </a>
+                </motion.div>
             </div>
             ))}
         </div>
